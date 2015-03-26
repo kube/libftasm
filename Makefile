@@ -17,6 +17,7 @@ SRC			:=	ft_bzero.s		\
 				ft_isalnum.s	\
 				ft_isascii.s	\
 				ft_isprint.s	\
+				ft_toupper.s	\
 
 SRC			:= $(addprefix src/, $(SRC))
 OBJ			:= $(SRC:src/%.s=%.o)
