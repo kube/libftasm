@@ -12,6 +12,7 @@ NAME		:= libfts.a
 
 SRC			:=	ft_bzero.s		\
 				ft_strcat.s		\
+				ft_isalpha.s	\
 
 SRC			:= $(addprefix src/, $(SRC))
 OBJ			:= $(SRC:src/%.s=%.o)
