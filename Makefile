@@ -19,6 +19,7 @@ SRC			:=	ft_bzero.s		\
 				ft_isprint.s	\
 				ft_toupper.s	\
 				ft_tolower.s	\
+				ft_puts.s		\
 
 SRC			:= $(addprefix src/, $(SRC))
 OBJ			:= $(SRC:src/%.s=%.o)
@@ -40,20 +41,25 @@ $(NAME): $(OBJ)
 	@ar rcs $(NAME) $(OBJ)
 	@if [ -a $(NAME) ] ; \
 	then \
-		printf "\e[42G$(GREEN)✓$(NO_COLOR)\n" ; \
+		printf "\e[31G$(GREEN)✓$(NO_COLOR)\n" ; \
 	fi;
 
 %.o: src/%.s
+	@printf "$(GRAY)Compiling $(GREEN)$(<:src/%.s=%) $(NO_COLOR)"
 	@nasm -f macho64 $< -o $@
+	@if [ -a $(<) ] ; \
+	then \
+		printf "\e[31G$(GREEN)✓$(NO_COLOR)\n" ; \
+	fi;
 
 clean:
 	@printf "$(GRAY)Removing objects$(NO_COLOR)"
 	@rm -f $(OBJ)
-	@printf "\e[42G$(GREEN)✓$(NO_COLOR)\n"
+	@printf "\e[31G$(GREEN)✓$(NO_COLOR)\n"
 
 fclean: clean
 	@printf "$(GRAY)Removing library$(NO_COLOR)"
 	@rm -f $(NAME)
-	@printf "\e[42G$(GREEN)✓$(NO_COLOR)\n"
+	@printf "\e[31G$(GREEN)✓$(NO_COLOR)\n"
 
 re: fclean all
