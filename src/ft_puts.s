@@ -3,11 +3,9 @@
 %define WRITE				4
 
 section .data
-
-carret: db 10,0
+carret: db 10
 
 section .text
-
 global _ft_puts
 
 _ft_puts:
