@@ -3,14 +3,19 @@
 %define WRITE				4
 
 section .data
-carret: db 10
+nulltxt: db "(null)", 10
+.len: equ $ - nulltxt
 
 section .text
 global _ft_puts
 
 _ft_puts:
+	; check if rdi is NULL
+	cmp	rdi, 0
+	jz	null
+
 	; store the argument length in RCX
-	mov rcx, 0
+	xor rcx, rcx
 length:
 	cmp	[rdi + rcx], BYTE 0
 	jz	output
@@ -25,9 +30,27 @@ output:
 	syscall
 
 	mov	rax, MACH_SYSCALL(WRITE)
-	lea rsi, [rel carret]
+	lea rsi, [rel nulltxt + 6]
 	mov rdi, STDOUT
 	mov rdx, 1
 	syscall
+	jnc	no_error
 
+	; return EOF when error
+	mov rax, -1
+
+	ret
+
+null:
+	mov	rax, MACH_SYSCALL(WRITE)
+	lea rsi, [rel nulltxt]
+	mov rdi, STDOUT
+	mov rdx, nulltxt.len
+	syscall
+	jnc	no_error
+
+	; return EOF when error
+	mov rax, -1
+
+no_error:
 	ret
