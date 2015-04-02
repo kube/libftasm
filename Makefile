@@ -23,6 +23,7 @@ SRC			:=	ft_bzero.s		\
 				ft_strlen.s		\
 				ft_memset.s		\
 				ft_memcpy.s		\
+				ft_strdup.s		\
 
 SRC			:= $(addprefix src/, $(SRC))
 OBJ			:= $(SRC:src/%.s=%.o)
