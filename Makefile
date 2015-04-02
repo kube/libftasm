@@ -21,6 +21,7 @@ SRC			:=	ft_bzero.s		\
 				ft_tolower.s	\
 				ft_puts.s		\
 				ft_strlen.s		\
+				ft_memset.s		\
 
 SRC			:= $(addprefix src/, $(SRC))
 OBJ			:= $(SRC:src/%.s=%.o)
